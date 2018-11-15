@@ -5,7 +5,6 @@ import (
 	"github.com/dwg255/landlord/common"
 )
 
-//处理用户的请求
 func wsRequest(data []interface{}, client *Client) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -85,7 +84,6 @@ func wsRequest(data []interface{}, client *Client) {
 		}
 	case common.ReqCallScore:
 		logs.Debug("[%v] ReqCallScore %v", client.UserInfo.Username, data)
-		//if client.Table.GameManage.Turn == client || (client.Table.GameManage.Turn == nil && client.Table.Creator == client) {
 		client.Table.Lock.Lock()
 		defer client.Table.Lock.Unlock()
 

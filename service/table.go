@@ -70,9 +70,7 @@ func (table *Table) gameOver(client *Client) {
 	logs.Debug("table[%d] game over", table.TableId)
 }
 
-//叫地主结束，开始游戏
 func (table *Table) callEnd() {
-	//无人叫地主
 	table.State = GamePlaying
 	table.GameManage.FirstCallScore = table.GameManage.FirstCallScore.Next
 	if table.GameManage.MaxCallScoreTurn == nil || table.GameManage.MaxCallScore == 0 {
@@ -119,7 +117,7 @@ func (table *Table) joinTable(c *Client) {
 		table.State = GameCallScore
 		table.dealPoker()
 	} else if c.Room.AllowRobot {
-		go table.addRobot(c.Room) //携程添加机器人，锁不冲突
+		go table.addRobot(c.Room)
 		logs.Debug("robot join ok")
 	}
 }
@@ -145,7 +143,6 @@ func (table *Table) addRobot(room *Room) {
 	}
 }
 
-//发牌
 func (table *Table) dealPoker() {
 	logs.Debug("deal poker")
 	table.GameManage.Pokers = make([]int, 0)
@@ -175,7 +172,6 @@ func (table *Table) chat(client *Client, msg string) {
 	}
 }
 
-//重置桌子
 func (table *Table) reset() {
 	table.GameManage = &GameManage{
 		FirstCallScore:   table.GameManage.FirstCallScore,
@@ -199,7 +195,6 @@ func (table *Table) reset() {
 	}
 }
 
-//洗牌
 func (table *Table) ShufflePokers() {
 	logs.Debug("ShufflePokers")
 	r := rand.New(rand.NewSource(time.Now().Unix()))
@@ -211,7 +206,6 @@ func (table *Table) ShufflePokers() {
 	}
 }
 
-//同步房间用户信息，按链表顺序
 func (table *Table) syncUser() () {
 	logs.Debug("sync user")
 	response := make([]interface{}, 0, 3)

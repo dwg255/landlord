@@ -8,8 +8,8 @@ import (
 )
 
 var (
-	Pokers       = make(map[string]*Combination, 16384)		//hash 便于直接查找到打出得牌型和大小
-	TypeToPokers = make(map[string][]*Combination, 38)		//找同类型得所有组合
+	Pokers       = make(map[string]*Combination, 16384)
+	TypeToPokers = make(map[string][]*Combination, 38)
 )
 
 type Combination struct {

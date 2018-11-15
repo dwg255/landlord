@@ -28,7 +28,7 @@ var (
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 		CheckOrigin:     func(r *http.Request) bool { return true },
-	} //不验证origin
+	}
 )
 
 type UserId int
@@ -47,14 +47,13 @@ type Client struct {
 	Table      *Table
 	HandPokers []int
 	Ready      bool
-	IsCalled   bool    //是否叫完分
-	Next       *Client //链表
+	IsCalled   bool
+	Next       *Client
 	IsRobot    bool
-	toRobot    chan []interface{} //发送给robot的消息
-	toServer   chan []interface{}	//robot发送给服务器
+	toRobot    chan []interface{}
+	toServer   chan []interface{}
 }
 
-//重置状态
 func (c *Client) reset() {
 	c.UserInfo.Role = 1
 	c.HandPokers = make([]int, 0, 21)
@@ -62,7 +61,6 @@ func (c *Client) reset() {
 	c.IsCalled = false
 }
 
-//广播房间所有人
 func (c *Client) sendRoomTables() {
 	res := make([][2]int, 0)
 	for _, table := range c.Room.Tables {
@@ -73,14 +71,11 @@ func (c *Client) sendRoomTables() {
 	c.sendMsg([]interface{}{common.ResTableList, res})
 }
 
-//发送给当前用户
 func (c *Client) sendMsg(msg []interface{}) {
 	if c.IsRobot {
-		//c.sendToRobot(msg)
 		c.toRobot <- msg
 		return
 	}
-	//logs.Debug("send msg %v", msg)
 	msgByte, err := json.Marshal(msg)
 	if err != nil {
 		logs.Error("send msg [%v] marsha1 err:%v", string(msgByte), err)
@@ -97,7 +92,6 @@ func (c *Client) sendMsg(msg []interface{}) {
 	}
 }
 
-//客户端退出时维护好房间用户链表，关闭这个用户对应的协程
 func (c *Client) close() {
 	if c.Table != nil {
 		for _, client := range c.Table.TableClients {
@@ -132,7 +126,6 @@ func (c *Client) close() {
 	}
 }
 
-//读取用户上传的消息
 func (c *Client) readPump() {
 	defer func() {
 		//logs.Debug("readPump exit")
@@ -155,11 +148,9 @@ func (c *Client) readPump() {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
 				logs.Error("websocket user_id[%d] unexpected close error: %v", c.UserInfo.UserId, err)
 			}
-			//logs.Debug("read message err:%v", err)
 			return
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		//logs.Debug("receive message from client:%s", message)
 		var data []interface{}
 		err = json.Unmarshal(message, &data)
 		if err != nil {
@@ -174,7 +165,6 @@ func (c *Client) readPump() {
 func (c *Client) Ping() {
 	ticker := time.NewTicker(pingPeriod)
 	defer func() {
-		//logs.Debug("Ping exit")
 		ticker.Stop()
 	}()
 	for {
@@ -188,7 +178,6 @@ func (c *Client) Ping() {
 	}
 }
 
-//将请求升级为websocket
 func ServeWs(w http.ResponseWriter, r *http.Request) {
 	conn, err := upGrader.Upgrade(w, r, nil)
 	if err != nil {

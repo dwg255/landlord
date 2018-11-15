@@ -6,16 +6,15 @@ import (
 	"time"
 )
 
-//加入机器人时启动一个服务协程
 func (c *Client) runRobot() {
 	for {
 		select {
-		case msg, ok := <-c.toServer:	//机器人上传请求
+		case msg, ok := <-c.toServer:
 			if !ok {
 				return
 			}
 			wsRequest(msg, c)
-		case msg, ok := <-c.toRobot:	//处理服务端消息
+		case msg, ok := <-c.toRobot:
 			if !ok {
 				return
 			}

@@ -7,7 +7,6 @@ import (
 	"encoding/json"
 )
 
-//生成所有牌型rule.json文件
 func write() {
 	path := "rule.json"
 	_, err := os.Stat(path)
@@ -21,7 +20,6 @@ func write() {
 	}
 }
 
-//生成连续num个的单牌的顺子
 func generateSeq(num int, seq []string) (res []string) {
 	for i, _ := range seq {
 		if i+num > 12 {
@@ -36,7 +34,6 @@ func generateSeq(num int, seq []string) (res []string) {
 	return
 }
 
-//生成num个不同单的组合
 func combination(seq []string, num int) (comb []string) {
 	if num == 0 {
 		panic("generate err , combination count can not be 0")
@@ -66,7 +63,6 @@ func combination(seq []string, num int) (comb []string) {
 	return
 }
 
-//生成入口
 func generate() {
 	CARDS := "34567890JQKA2"
 	RULE := map[string][]string{}
@@ -74,7 +70,6 @@ func generate() {
 	RULE["pair"] = []string{}
 	RULE["trio"] = []string{}
 	RULE["bomb"] = []string{}
-	//单，对，三张，炸弹
 	for _, c := range CARDS {
 		card := string(c)
 		RULE["single"] = append(RULE["single"], card)
@@ -82,15 +77,12 @@ func generate() {
 		RULE["trio"] = append(RULE["trio"], card+card+card)
 		RULE["bomb"] = append(RULE["bomb"], card+card+card+card)
 	}
-	//生成顺子
 	for _, num := range []int{5, 6, 7, 8, 9, 10, 11, 12} {
 		RULE["seq_single"+strconv.Itoa(num)] = generateSeq(num, RULE["single"])
 	}
-	//连对
 	for _, num := range []int{3, 4, 5, 6, 7, 8, 9, 10} {
 		RULE["seq_pair"+strconv.Itoa(num)] = generateSeq(num, RULE["pair"])
 	}
-	//飞机
 	for _, num := range []int{2, 3, 4, 5, 6} {
 		RULE["seq_trio"+strconv.Itoa(num)] = generateSeq(num, RULE["trio"])
 	}
@@ -101,7 +93,6 @@ func generate() {
 	RULE["trio_single"] = make([]string, 0)
 	RULE["trio_pair"] = make([]string, 0)
 
-	//三带一，三带一对儿
 	for _, t := range RULE["trio"] {
 		for _, s := range RULE["single"] {
 			if s[0] != t[0] {
@@ -114,7 +105,6 @@ func generate() {
 			}
 		}
 	}
-	//飞机带单，对
 	for _, num := range []int{2, 3, 4, 5} {
 		seqTrioSingle := []string(nil)
 		seqTrioPair := []string(nil)
@@ -147,7 +137,6 @@ func generate() {
 		RULE["seq_trio_pair"+strconv.Itoa(num)] = seqTrioPair
 	}
 
-	//四带二
 	RULE["bomb_single"] = []string(nil)
 	RULE["bomb_pair"] = []string(nil)
 	for _, b := range RULE["bomb"] {

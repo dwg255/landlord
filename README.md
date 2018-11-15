@@ -13,6 +13,7 @@
 
     修改conf下的配置，导入sql
 
+2.启动:
     浏览器访问 http://localhost:8080
 
 

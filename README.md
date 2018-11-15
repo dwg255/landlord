@@ -24,4 +24,3 @@ This project is released under the terms of the MIT license. See [LICENSE](LICEN
 information or see https://opensource.org/licenses/MIT.
 
 ---
-

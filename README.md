@@ -25,3 +25,6 @@ This project is released under the terms of the MIT license. See [LICENSE](LICEN
 information or see https://opensource.org/licenses/MIT.
 
 ---
+---
+    客户端代码来自 https://github.com/mailgyc/doudizhu ，版权归原作者所有
+---

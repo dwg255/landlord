@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/astaxie/beego/logs"
-	"github.com/dwg255/landlord/common"
+	"landlord/common"
 )
 
 func wsRequest(data []interface{}, client *Client) {

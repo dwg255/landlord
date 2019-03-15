@@ -14,5 +14,8 @@ func LoginOut(w http.ResponseWriter, r *http.Request) {
 	cookie := http.Cookie{Name: "user", Path: "/", MaxAge: -1}
 	http.SetCookie(w, &cookie)
 
-	w.Write([]byte{'1'})
+	_,err := w.Write([]byte{'1'})
+	if err != nil {
+		logs.Error("LoginOut err: %v",err)
+	}
 }

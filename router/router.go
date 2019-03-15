@@ -2,8 +2,8 @@ package router
 
 import (
 	"net/http"
-	"github.com/dwg255/landlord/service"
-	"github.com/dwg255/landlord/controllers"
+	"landlord/service"
+	"landlord/controllers"
 )
 
 func init() {

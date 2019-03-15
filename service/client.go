@@ -7,7 +7,7 @@ import (
 	"github.com/gorilla/websocket"
 	"github.com/astaxie/beego/logs"
 	"encoding/json"
-	"github.com/dwg255/landlord/common"
+	"landlord/common"
 	"strconv"
 )
 
@@ -81,14 +81,27 @@ func (c *Client) sendMsg(msg []interface{}) {
 		logs.Error("send msg [%v] marsha1 err:%v", string(msgByte), err)
 		return
 	}
-	c.conn.SetWriteDeadline(time.Now().Add(writeWait))
+	err = c.conn.SetWriteDeadline(time.Now().Add(writeWait))
+	if err != nil {
+		logs.Error("send msg SetWriteDeadline [%v] err:%v", string(msgByte), err)
+		return
+	}
 	w, err := c.conn.NextWriter(websocket.TextMessage)
 	if err != nil {
-		c.conn.Close()
+		err = c.conn.Close()
+		if err != nil {
+			logs.Error("close client err: %v",err)
+		}
 	}
-	w.Write(msgByte)
+	_,err = w.Write(msgByte)
+	if err != nil {
+		logs.Error("Write msg [%v] err: %v",string(msgByte),err)
+	}
 	if err := w.Close(); err != nil {
-		c.conn.Close()
+		err = c.conn.Close()
+		if err != nil {
+			logs.Error("close err: %v",err)
+		}
 	}
 }
 

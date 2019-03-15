@@ -1,5 +1,5 @@
 # 斗地主
-斗地主, golang,
+斗地主, golang 1.12, sqlite3, go module
 
 运行步骤:
 
@@ -7,14 +7,15 @@
 
     go get github.com/dwg255/landlord
 
-2.编译(编译到源码根目录，因为程序依赖conf目录下的配置文件):
-
-    go build -o src/github.com/dwg255/landlord/landlord.exe github.com/dwg255/landlord/main
-
-    修改conf下的配置，导入sql
+2.编译:
+    
+    cd landlord/main
+    go build -o ../main.exe
+    cd ..
+    main.exe
 
 2.启动:
-    浏览器访问 http://localhost:8080
+    浏览器访问 http://localhost
 
 
 ---

@@ -20,6 +20,7 @@ func write() {
 	}
 }
 
+//生成连续num个的单牌的顺子
 func generateSeq(num int, seq []string) (res []string) {
 	for i, _ := range seq {
 		if i+num > 12 {
@@ -34,6 +35,7 @@ func generateSeq(num int, seq []string) (res []string) {
 	return
 }
 
+//生成num个不同单的组合
 func combination(seq []string, num int) (comb []string) {
 	if num == 0 {
 		panic("generate err , combination count can not be 0")
@@ -161,9 +163,17 @@ func generate() {
 		panic("json marsha1 RULE err :" + err.Error())
 	}
 	file, err := os.Create("rule.json")
-	defer file.Close()
+	defer func(){
+		err = file.Close()
+		if err != nil {
+			logs.Error("generate err: %v",err)
+		}
+	}()
 	if err != nil {
 		panic("create rule.json err:" + err.Error())
 	}
-	file.Write(res)
+	_,err = file.Write(res)
+	if err != nil {
+		panic("create rule.json err:" + err.Error())
+	}
 }

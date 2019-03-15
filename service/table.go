@@ -1,13 +1,13 @@
 package service
 
 import (
-	"sync"
-	"github.com/dwg255/landlord/common"
-	"github.com/astaxie/beego/logs"
-	"math/rand"
-	"time"
-	"sort"
 	"fmt"
+	"github.com/astaxie/beego/logs"
+	"landlord/common"
+	"math/rand"
+	"sort"
+	"sync"
+	"time"
 )
 
 type TableId int
@@ -97,8 +97,9 @@ func (table *Table) joinTable(c *Client) {
 		logs.Error("Player[%d] JOIN Table[%d] FULL", c.UserInfo.UserId, table.TableId)
 		return
 	}
+	logs.Debug("[%v] user [%v] request join table", c.UserInfo.UserId, c.UserInfo.Username)
 	if _, ok := table.TableClients[c.UserInfo.UserId]; ok {
-		logs.Error("user already in this table")
+		logs.Error("[%v] user [%v] already in this table", c.UserInfo.UserId, c.UserInfo.Username)
 		return
 	}
 
@@ -135,7 +136,7 @@ func (table *Table) addRobot(room *Room) {
 				Coin:     10000,
 			},
 			IsRobot:  true,
-			toRobot: make(chan []interface{}, 3),
+			toRobot:  make(chan []interface{}, 3),
 			toServer: make(chan []interface{}, 3),
 		}
 		go client.runRobot()

@@ -1,23 +1,16 @@
 package common
 
 import (
-	"github.com/jmoiron/sqlx"
+	"database/sql"
 )
 
 var GameConfInfo GameConf
 
 type GameConf struct {
-	HttpPort    int
-	LogPath     string
-	LogLevel    string
-	AppSecret   string
-	MysqlConf   MysqlConf
-}
-
-type MysqlConf struct {
-	MysqlAddr     string
-	MysqlUser     string
-	MysqlPassword string
-	MysqlDatabase string
-	Pool          *sqlx.DB
+	HttpPort  int
+	LogPath   string
+	LogLevel  string
+	AppSecret string
+	DbPath    string
+	Db        *sql.DB
 }

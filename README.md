@@ -1,11 +1,14 @@
 # 斗地主
 斗地主, golang 1.12, sqlite3, go module
 
+说明：go modules管理依赖包，执行编译自动下载依赖；数据库使用sqlite，无需配置数据库项；自带无脑出牌AI；服务端经过压力测试，客户端代码来自https://github.com/mailgyc/doudizhu 若有BUG请联系原作者。
+
+
 运行步骤:
 
 1.下载源码:
 
-    go get github.com/dwg255/landlord
+    git clone https://github.com/dwg255/landlord.git
 
 2.编译:
     

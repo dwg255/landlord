@@ -1,9 +1,9 @@
 # 斗地主
 斗地主, golang 1.12, sqlite3, go module
 
-说明：go modules管理依赖包，执行编译自动下载依赖；数据库使用sqlite，无需配置数据库项；自带无脑出牌AI；服务端经过压力测试，客户端代码来自https://github.com/mailgyc/doudizhu 。
+说明：go modules管理依赖包，执行编译自动下载依赖；使用sqlite数据库，无需配置；自带无脑出牌AI；服务端经过压力测试，客户端代码来自https://github.com/mailgyc/doudizhu 。
 
-请各位老爷点个star。。。
+烦请请各位老爷点个star。。。
 
 
 运行步骤:

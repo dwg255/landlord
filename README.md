@@ -22,7 +22,7 @@
 2.启动:
     浏览器访问 http://localhost
 
-
+http://106.13.60.124:8080/
 ---
 
 License

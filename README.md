@@ -19,10 +19,11 @@
     cd ..
     main.exe
 
-2.启动:
+3.启动:
     浏览器访问 http://localhost
 
-http://106.13.60.124:8080/
+4.效果展示:
+http://blzz.shop
 
 
 ---

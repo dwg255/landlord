@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego/logs"
 	"html/template"
+	"landlord/common"
 	"net/http"
+	"strconv"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -39,6 +41,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ret["user"] = string(res)
+	ret["port"] = strconv.Itoa(common.GameConfInfo.HttpPort)
 	err = t.Execute(w, ret)
 	if err != nil {
 		logs.Error("user request Index - template execute err : %v", err)

@@ -20,6 +20,7 @@
 <input id="user" type="hidden" value="{{.user}}">
 <script>
 (function () {
+    window.localStorage.setItem("port",{{.port}});
     var h = window.innerHeight * 960/window.innerWidth;
     if (h > 540) h = 540;
     var game = new Phaser.Game(960, h, Phaser.AUTO, 'game');

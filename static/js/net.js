@@ -53,8 +53,13 @@ PG.Socket.connect = function(onopen, onmessage, onerror) {
     if (this.websocket != null) {
         return;
     }
-    
-    this.websocket = new WebSocket("ws://" + window.location.host + "/ws");
+
+    if (localStorage.hasOwnProperty("port")){
+        this.websocket = new WebSocket("ws://" + window.location.host +":" + localStorage.getItem("port") + "/ws");
+    } else {
+        this.websocket = new WebSocket("ws://" + window.location.host + "/ws");
+    }
+
     this.websocket.binaryType = 'arraybuffer';
     this.websocket.onopen = function(evt) {
         console.log("CONNECTED");

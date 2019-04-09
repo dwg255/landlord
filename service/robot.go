@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"github.com/astaxie/beego/logs"
 	"landlord/common"
 	"time"
@@ -78,6 +79,13 @@ func (c *Client) runRobot() {
 }
 
 func (c *Client) autoShotPoker() {
+	//因为机器人休眠一秒后才出牌，有可能因用户退出而关闭chan
+	defer func() {
+		err := recover()
+		if err != nil {
+			logs.Warn("autoShotPoker err : %v",err)
+		}
+	}()
 	logs.Debug("robot [%v] auto-shot poker", c.UserInfo.Username)
 	shotPokers := make([]int, 0)
 	if len(c.Table.GameManage.LastShotPoker) == 0 || c.Table.GameManage.LastShotClient == c {
@@ -96,6 +104,12 @@ func (c *Client) autoShotPoker() {
 }
 
 func (c *Client) autoCallScore() {
+	defer func() {
+		err := recover()
+		if err != nil {
+			logs.Warn("autoCallScore err : %v",err)
+		}
+	}()
 	logs.Debug("robot [%v] autoCallScore", c.UserInfo.Username)
 	c.toServer <- []interface{}{float64(common.ReqCallScore), float64(3)}
 }

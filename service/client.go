@@ -28,7 +28,7 @@ var (
 		ReadBufferSize:  1024,
 		WriteBufferSize: 1024,
 		CheckOrigin:     func(r *http.Request) bool { return true },
-	}
+	}//不验证origin
 )
 
 type UserId int
@@ -47,11 +47,11 @@ type Client struct {
 	Table      *Table
 	HandPokers []int
 	Ready      bool
-	IsCalled   bool
-	Next       *Client
+	IsCalled   bool    //是否叫完分
+	Next       *Client	//链表
 	IsRobot    bool
-	toRobot    chan []interface{}
-	toServer   chan []interface{}
+	toRobot    chan []interface{}	//发送给robot的消息
+	toServer   chan []interface{}	//robot发送给服务器
 }
 
 func (c *Client) reset() {

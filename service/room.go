@@ -62,3 +62,26 @@ func (r *Room) newTable(client *Client) (table *Table) {
 	logs.Debug("create new table ok! allow robot :%v", r.AllowRobot)
 	return
 }
+
+//func init()  {
+//	go func() {		//压测
+//		time.Sleep(time.Second * 3)
+//		for i:=0;i<1;i++{
+//			client := &Client{
+//				Room:       roomManager.Rooms[1],
+//				HandPokers: make([]int, 0, 21),
+//				UserInfo: &UserInfo{
+//					UserId:   UserId(rand.Intn(10000)),
+//					Username: "ROBOT-0",
+//					Coin:     10000,
+//				},
+//				IsRobot:  true,
+//				toRobot: make(chan []interface{}, 3),
+//				toServer: make(chan []interface{}, 3),
+//			}
+//			go client.runRobot()
+//			table := client.Room.newTable(client)
+//			table.joinTable(client)
+//		}
+//	}()
+//}

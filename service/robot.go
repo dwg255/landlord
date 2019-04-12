@@ -1,7 +1,6 @@
 package service
 
 import (
-	"fmt"
 	"github.com/astaxie/beego/logs"
 	"landlord/common"
 	"time"

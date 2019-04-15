@@ -54,6 +54,7 @@ type Client struct {
 	toServer   chan []interface{}	//robot发送给服务器
 }
 
+//重置状态
 func (c *Client) reset() {
 	c.UserInfo.Role = 1
 	c.HandPokers = make([]int, 0, 21)
@@ -61,6 +62,7 @@ func (c *Client) reset() {
 	c.IsCalled = false
 }
 
+//发送房间内已有的牌桌信息
 func (c *Client) sendRoomTables() {
 	res := make([][2]int, 0)
 	for _, table := range c.Room.Tables {
@@ -105,6 +107,7 @@ func (c *Client) sendMsg(msg []interface{}) {
 	}
 }
 
+//光比客户端
 func (c *Client) close() {
 	if c.Table != nil {
 		for _, client := range c.Table.TableClients {
@@ -139,6 +142,7 @@ func (c *Client) close() {
 	}
 }
 
+//可能是因为版本问题，导致有些未处理的error
 func (c *Client) readPump() {
 	defer func() {
 		//logs.Debug("readPump exit")

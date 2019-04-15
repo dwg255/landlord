@@ -77,6 +77,7 @@ func (c *Client) runRobot() {
 	}
 }
 
+//自动出牌
 func (c *Client) autoShotPoker() {
 	//因为机器人休眠一秒后才出牌，有可能因用户退出而关闭chan
 	defer func() {
@@ -102,6 +103,7 @@ func (c *Client) autoShotPoker() {
 	c.toServer <- req
 }
 
+//自动叫分
 func (c *Client) autoCallScore() {
 	defer func() {
 		err := recover()

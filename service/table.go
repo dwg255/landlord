@@ -118,6 +118,7 @@ func (table *Table) joinTable(c *Client) {
 		table.State = GameCallScore
 		table.dealPoker()
 	} else if c.Room.AllowRobot {
+		time.Sleep(time.Microsecond * 10)
 		go table.addRobot(c.Room)
 		logs.Debug("robot join ok")
 	}

@@ -23,7 +23,7 @@
     浏览器访问 http://localhost
 
 4.效果展示:
-http://blzz.shop
+http://blzz.shop:8080
 
 
 ---

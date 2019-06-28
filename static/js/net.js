@@ -54,11 +54,11 @@ PG.Socket.connect = function(onopen, onmessage, onerror) {
         return;
     }
 
-    if (localStorage.hasOwnProperty("port")){
-        this.websocket = new WebSocket("ws://" + window.location.host +":" + localStorage.getItem("port") + "/ws");
-    } else {
+    // if (localStorage.hasOwnProperty("port")){
+    //     this.websocket = new WebSocket("ws://" + window.location.host +":" + localStorage.getItem("port") + "/ws");
+    // } else {
         this.websocket = new WebSocket("ws://" + window.location.host + "/ws");
-    }
+    // }
 
     this.websocket.binaryType = 'arraybuffer';
     this.websocket.onopen = function(evt) {

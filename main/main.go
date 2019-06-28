@@ -38,7 +38,7 @@ func main() {
 	}
 }
 
-func init() {
+func init() {  	//生成pid文件，保存pid
 	pidFileName := "pid"
 	fileInfo, err := os.Stat(pidFileName)
 	if err != nil {
@@ -54,7 +54,7 @@ func init() {
 			logs.Error("open pidFile [%s] error :%v", pidFileName, err)
 			return
 		}
-		err = pidFile.Truncate(0)
+		err = pidFile.Truncate(0)  //清空数据
 
 		_, err = io.WriteString(pidFile, strconv.Itoa(pid))
 		if err != nil {

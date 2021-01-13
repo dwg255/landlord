@@ -32,13 +32,14 @@ func main() {
 	}
 
 	var addr = flag.String("addr", fmt.Sprintf(":%d", gameConf.HttpPort), "http service address")
+	flag.Parse()
 	err = http.ListenAndServe(*addr, nil)
 	if err != nil {
 		logs.Error("ListenAndServe: err:%v", err)
 	}
 }
 
-func init() {  	//生成pid文件，保存pid
+func init() { //生成pid文件，保存pid
 	pidFileName := "pid"
 	fileInfo, err := os.Stat(pidFileName)
 	if err != nil {
@@ -54,7 +55,7 @@ func init() {  	//生成pid文件，保存pid
 			logs.Error("open pidFile [%s] error :%v", pidFileName, err)
 			return
 		}
-		err = pidFile.Truncate(0)  //清空数据
+		err = pidFile.Truncate(0) //清空数据
 
 		_, err = io.WriteString(pidFile, strconv.Itoa(pid))
 		if err != nil {

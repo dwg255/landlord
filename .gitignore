@@ -2,3 +2,6 @@
 *.exe
 *.exe~
 *.log
+*.db
+*.pid
+.DS_Store
